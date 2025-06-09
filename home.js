@@ -14,10 +14,10 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 let currentUser = null;
-let currentTab = "home";
 let currentProfile = {displayName: '', photoURL: ''};
-let notifications = [];
+let currentTab = "home";
 
+// DOM elements
 const feed = document.getElementById('feed');
 const postForm = document.getElementById('post-form');
 const postContent = document.getElementById('post-content');
@@ -27,7 +27,7 @@ const sidebarHome = document.getElementById('sidebar-home');
 const sidebarExplore = document.getElementById('sidebar-explore');
 const sidebarNotifications = document.getElementById('sidebar-notifications');
 const sidebarProfile = document.getElementById('sidebar-profile');
-const sidebarThemeToggle = document.getElementById('sidebar-theme-toggle');
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
 const themeText = document.getElementById('theme-text');
 const profilePreview = document.getElementById('profile-preview');
 const profileAvatar = document.getElementById('profile-avatar');
@@ -42,11 +42,12 @@ const profileModal = document.getElementById('profile-modal');
 const profileForm = document.getElementById('profile-form');
 const profileDisplayName = document.getElementById('profile-displayname');
 const profilePhoto = document.getElementById('profile-photo');
+const postComposerSection = document.getElementById('post-composer-section');
 
 // THEME
 let theme = localStorage.getItem('theme') || 'light';
 setTheme(theme);
-sidebarThemeToggle.onclick = () => {
+themeToggleBtn.onclick = () => {
   theme = (theme === 'light') ? 'dark' : 'light';
   setTheme(theme);
 };
@@ -85,24 +86,42 @@ auth.onAuthStateChanged(async (user) => {
 });
 
 // LOGOUT
-logoutBtn.onclick = () => auth.signOut();
+logoutBtn.onclick = (e) => {
+  e.preventDefault();
+  auth.signOut();
+};
 
 // NAVIGATION
-sidebarHome.onclick = () => showTab("home");
-sidebarExplore.onclick = () => showTab("explore");
-sidebarNotifications.onclick = () => showTab("notifications");
-sidebarProfile.onclick = () => openProfileModal();
+sidebarHome.onclick = (e) => {
+  e.preventDefault();
+  showTab("home");
+};
+sidebarExplore.onclick = (e) => {
+  e.preventDefault();
+  showTab("explore");
+};
+sidebarNotifications.onclick = (e) => {
+  e.preventDefault();
+  showTab("notifications");
+};
+sidebarProfile.onclick = (e) => {
+  e.preventDefault();
+  if (currentUser) window.location = `profile.html?uid=${currentUser.uid}`;
+};
 
 function setActiveTab(tab) {
-  [sidebarHome, sidebarExplore, sidebarNotifications].forEach(el => el.classList.remove('active'));
+  [sidebarHome, sidebarExplore, sidebarNotifications, sidebarProfile].forEach(el => el.classList.remove('active'));
   if (tab === 'home') sidebarHome.classList.add('active');
   if (tab === 'explore') sidebarExplore.classList.add('active');
   if (tab === 'notifications') sidebarNotifications.classList.add('active');
+  if (tab === 'profile') sidebarProfile.classList.add('active');
 }
 
 function showTab(tab) {
   setActiveTab(tab);
   currentTab = tab;
+  // Only show composer on home
+  if (postComposerSection) postComposerSection.style.display = (tab === "home") ? "block" : "none";
   if (tab === "home") {
     feedTitle.textContent = "Home";
     loadFeed(true);
@@ -133,6 +152,7 @@ if (postForm) {
       public: true
     });
     postContent.value = '';
+    showTab("home");
   };
 }
 
@@ -144,7 +164,7 @@ function loadFeed(homeOnly=true) {
     let html = '';
     snap.forEach(doc => {
       const post = doc.data();
-      // Home: only posts by user and their moots; Explore: all
+      // Home: only posts by user and their follows; Explore: all
       if (homeOnly && post.authorUid !== currentUser.uid) return;
       html += renderPost(doc.id, post);
     });
@@ -168,7 +188,7 @@ function loadNotifications() {
         html += `<div class="post notification">
           <img src="${n.actorPhoto || `https://api.dicebear.com/7.x/person/svg?seed=${n.actor}`}" class="post-avatar" />
           <div class="post-content-block">
-            <span class="post-author">${n.actor}</span>
+            <span class="post-author clickable" onclick="window.location='profile.html?uid=${n.actorUid || ""}'">${n.actor}</span>
             <span class="post-time">${n.type.charAt(0).toUpperCase() + n.type.slice(1)}</span>
             <div class="post-main">${n.message || ''}</div>
           </div>
@@ -183,25 +203,27 @@ function loadNotifications() {
 function renderPost(id, post) {
   const liked = post.likes && post.likes.includes(currentUser.uid);
   const reposted = post.reposts && post.reposts.includes(currentUser.uid);
-  return `<div class="post" data-id="${id}">
-    <img src="${post.authorPhoto || `https://api.dicebear.com/7.x/person/svg?seed=${encodeURIComponent(post.author)}`}" class="post-avatar"/>
+  const isRepost = post.isRepost && post.originalPostId;
+  return `<div class="post${isRepost ? " repost" : ""}" data-id="${id}">
+    <img src="${post.authorPhoto || `https://api.dicebear.com/7.x/person/svg?seed=${encodeURIComponent(post.author)}`}" class="post-avatar" onclick="window.location='profile.html?uid=${post.authorUid}'" style="cursor:pointer"/>
     <div class="post-content-block">
       <div class="post-header">
-        <span class="post-author">${post.author}</span>
+        <span class="post-author clickable" onclick="window.location='profile.html?uid=${post.authorUid}'">${post.author}</span>
         <span class="post-time">${post.timestamp ? post.timestamp.toDate().toLocaleString() : ''}</span>
+        ${isRepost ? `<span style="margin-left:1em;color:var(--primary);font-size:0.95em;">🔁 Repost</span>` : ""}
       </div>
       <div class="post-main">${post.content.replace(/\n/g, '<br>')}</div>
       <div class="post-actions">
         <button class="action-btn like-btn${liked ? ' liked' : ''}" title="Like">
-          <span>♥</span>
+          <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-8-6.6-8-11.3C4 5.1 7.3 2 12 7.1 16.7 2 20 5.1 20 9.7c0 4.7-8 11.3-8 11.3z"/></svg>
           <span class="count">${post.likes ? post.likes.length : 0}</span>
         </button>
         <button class="action-btn comment-btn commented" title="Comment">
-          <span>💬</span>
+          <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <span class="count">${post.comments ? post.comments.length : 0}</span>
         </button>
         <button class="action-btn repost-btn${reposted ? ' reposted' : ''}" title="Repost">
-          <span>🔁</span>
+          <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 2v6h6"/><path d="M7 22v-6H1"/><path d="M22 8a9.77 9.77 0 0 0-7-3c-5 0-9 3.6-9 8"/><path d="M2 16a9.77 9.77 0 0 0 7 3c5 0 9-3.6 9-8"/></svg>
           <span class="count">${post.reposts ? post.reposts.length : 0}</span>
         </button>
       </div>
@@ -229,6 +251,7 @@ function attachPostEvents() {
             toUid: post.authorUid,
             actor: currentProfile.displayName,
             actorPhoto: currentProfile.photoURL,
+            actorUid: currentUser.uid,
             type: 'like',
             postId: id,
             message: `${currentProfile.displayName} liked your post.`,
@@ -252,7 +275,8 @@ function attachPostEvents() {
         reposts = reposts.filter(uid => uid !== currentUser.uid);
       } else {
         reposts.push(currentUser.uid);
-        // Create new post for repost
+        // Create new post for repost, point to original
+        const originalPostId = post.isRepost && post.originalPostId ? post.originalPostId : id;
         await db.collection('posts').add({
           content: post.content,
           author: currentProfile.displayName,
@@ -264,14 +288,23 @@ function attachPostEvents() {
           comments: [],
           public: true,
           isRepost: true,
-          originalPostId: id
+          originalPostId
         });
+        // Update original post's repost count globally
+        const origRef = db.collection('posts').doc(originalPostId);
+        const origDoc = await origRef.get();
+        let origReposts = origDoc.data().reposts || [];
+        if (!origReposts.includes(currentUser.uid)) {
+          origReposts.push(currentUser.uid);
+          await origRef.update({ reposts: origReposts });
+        }
         // Notification for repost
         if (post.authorUid !== currentUser.uid) {
           await db.collection('notifications').add({
             toUid: post.authorUid,
             actor: currentProfile.displayName,
             actorPhoto: currentProfile.photoURL,
+            actorUid: currentUser.uid,
             type: 'repost',
             postId: id,
             message: `${currentProfile.displayName} reposted your post.`,
@@ -288,6 +321,20 @@ function attachPostEvents() {
       const postDiv = btn.closest('.post');
       const id = postDiv.getAttribute('data-id');
       openCommentModal(id);
+    };
+  });
+  document.querySelectorAll('.post-author, .post-avatar').forEach(el => {
+    el.onclick = function(e) {
+      const postDiv = el.closest('.post');
+      const id = postDiv ? postDiv.getAttribute('data-id') : null;
+      let uid = null;
+      if (postDiv) {
+        const post = feed.querySelector(`[data-id="${id}"]`);
+        if (post) {
+          uid = post.querySelector('.post-author').getAttribute('onclick').match(/uid=(\w+)/)[1];
+        }
+      }
+      if (uid) window.location = `profile.html?uid=${uid}`;
     };
   });
 }
@@ -350,6 +397,7 @@ if (commentForm) {
         toUid: post.authorUid,
         actor: currentProfile.displayName,
         actorPhoto: currentProfile.photoURL,
+        actorUid: currentUser.uid,
         type: 'comment',
         postId: currentCommentPostId,
         message: `${currentProfile.displayName} commented: "${text}"`,
@@ -361,7 +409,7 @@ if (commentForm) {
   };
 }
 
-// PROFILE
+// PROFILE EDIT
 function openProfileModal() {
   modalBg.style.display = profileModal.style.display = 'block';
   profileDisplayName.value = currentProfile.displayName;

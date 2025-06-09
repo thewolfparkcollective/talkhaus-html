@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Talk Haus Feed</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <!-- Firebase Auth (for authentication) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore (for database) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <main class="container feed-container">
+    <header class="feed-header">
+      <h1>Talk Haus</h1>
+      <button id="logout-btn">Log Out</button>
+    </header>
+    <section class="post-form-section">
+      <form id="post-form">
+        <textarea id="post-content" placeholder="What's on your mind?" maxlength="280" required></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+    <section>
+      <h2>Your Moots’ Posts</h2>
+      <div id="feed"></div>
+    </section>
+  </main>
+  <script src="home.js"></script>
+</body>
+</html>

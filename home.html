@@ -3,80 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home – Talk Haus</title>
+  <title>Talk Haus – Home</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <div class="main-layout">
-    <!-- Sidebar -->
-    <nav class="sidebar">
-      <div class="sidebar-logo">
-        <a href="home.html"><img src="logo.png" alt="Talk Haus Logo" /></a>
-      </div>
-      <ul class="sidebar-menu">
-        <li id="sidebar-home" class="active"><a href="#" title="Home"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg> <span>Home</span></a></li>
-        <li id="sidebar-explore"><a href="#" title="Explore"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v2m6 4l-1.41 1.41M22 12h-2m-4 6l-1.41-1.41M12 22v-2m-6-4l1.41-1.41M2 12h2m4-6l1.41 1.41"/></svg> <span>Explore</span></a></li>
-        <li id="sidebar-notifications"><a href="#" title="Notifications"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> <span>Notifications</span></a></li>
-        <li id="sidebar-profile"><a href="#" title="Profile"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-2A4.5 4.5 0 0 1 10 14.5h4A4.5 4.5 0 0 1 18.5 19v2"/></svg> <span>Profile</span></a></li>
-        <li id="sidebar-theme-toggle"><button id="theme-toggle-btn" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;color:inherit;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M17.36 17.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M17.36 6.64l1.42-1.42"/></svg> <span id="theme-text">Light Mode</span></button></li>
-        <li id="logout-btn"><a href="#" title="Logout"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7"/><path d="M3 21V3a2 2 0 0 1 2-2h7"/></svg> <span>Logout</span></a></li>
-      </ul>
-    </nav>
-
-    <!-- Main content -->
-    <main class="feed-container">
-      <header class="feed-header">
-        <h1 id="feed-title">Home</h1>
-        <div class="profile-preview" id="profile-preview">
-          <img id="profile-avatar" src="https://api.dicebear.com/7.x/person/svg" alt="Profile" />
-          <span id="profile-name"></span>
+  <div class="container">
+    <img src="talkhaus_logo.png" alt="Talk Haus Logo" class="logo"/>
+    <h1 style="color:var(--primary);font-size:2rem;font-weight:800;margin:0.6em 0 0.2em 0;">Timeline</h1>
+    <div class="timeline">
+      <div class="post" style="background:var(--card-bg);color:var(--text);padding:1.2em 1em;margin-bottom:1em;border-radius:14px;">
+        <b style="color:var(--primary);">Alice</b> <span style="color:var(--muted-text);font-size:0.97em;">@alice &middot; 2m ago</span>
+        <p style="margin:0.5em 0;">Hey everyone! 👋 Excited to join Talk Haus 🚀</p>
+        <div style="display:flex;gap:0.7em;">
+          <button class="btn-small">Like</button>
+          <button class="btn-small">Comment</button>
+          <button class="btn-small">Share</button>
         </div>
-      </header>
-      
-      <!-- Post composer, visible only on Home tab -->
-      <section class="post-form-section" id="post-composer-section">
-        <form id="post-form">
-          <textarea id="post-content" placeholder="What's on your mind?" maxlength="280" required></textarea>
-          <button type="submit">Post</button>
-        </form>
-      </section>
-      
-      <!-- Feed/Explore/Notifications -->
-      <section>
-        <div id="feed"></div>
-      </section>
-    </main>
-    
-    <!-- Modals for comments and profile editing -->
-    <div id="modal-bg" class="modal-bg" style="display:none;"></div>
-    <div id="comment-modal" class="modal" style="display:none;">
-      <div class="modal-content">
-        <span class="close" onclick="closeCommentModal()">&times;</span>
-        <h2>Comments</h2>
-        <div id="modal-post-content"></div>
-        <div id="comments-list"></div>
-        <form id="comment-form">
-          <input type="text" id="comment-input" placeholder="Write a comment..." maxlength="180" required />
-          <button type="submit">Reply</button>
-        </form>
       </div>
-    </div>
-    <div id="profile-modal" class="modal" style="display:none;">
-      <div class="modal-content">
-        <span class="close" onclick="closeProfileModal()">&times;</span>
-        <h2>Edit Profile</h2>
-        <form id="profile-form">
-          <input type="text" id="profile-displayname" placeholder="Display Name" maxlength="32" required />
-          <input type="url" id="profile-photo" placeholder="Profile Image URL" />
-          <button type="submit">Save</button>
-        </form>
+      <div class="post" style="background:var(--card-bg);color:var(--text);padding:1.2em 1em;margin-bottom:1em;border-radius:14px;">
+        <b style="color:var(--primary);">Jordan</b> <span style="color:var(--muted-text);font-size:0.97em;">@jordan &middot; 5m ago</span>
+        <p style="margin:0.5em 0;">What’s everyone up to this week?</p>
+        <div style="display:flex;gap:0.7em;">
+          <button class="btn-small">Like</button>
+          <button class="btn-small">Comment</button>
+        </div>
       </div>
     </div>
   </div>
-  <script src="home.js"></script>
 </body>
 </html>

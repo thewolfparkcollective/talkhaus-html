@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Talk Haus – Connect & Share</title>
   <link rel="stylesheet" href="styles.css" />
-
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -29,7 +28,7 @@
     </div>
     <div class="newsletter-section" style="background:var(--primary);color:#fff;padding:1.2em 1em 1em 1em;border-radius:13px;margin:2.2em 0 1.6em 0;box-shadow:0 1px 8px 0 rgba(127,90,240,0.08);">
       <h3 style="margin-top:0;font-size:1.13em;font-weight:700;letter-spacing:0.2px;">Stay in the loop!</h3>
-      <form onsubmit="subscribeNewsletter(event)" style="display:flex;align-items:center;gap:0.7em;margin-top:0.6em;justify-content:center;">
+      <form id="newsletter-form" style="display:flex;align-items:center;gap:0.7em;margin-top:0.6em;justify-content:center;">
         <input type="email" id="email" placeholder="Email address" required style="padding:0.5em 0.7em;border-radius:8px;border:none;font-size:1em;width:170px;margin-right:0.2em;"/>
         <button type="submit" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.5em 1.1em;font-weight:600;font-size:1em;cursor:pointer;transition:background 0.15s;">Subscribe</button>
       </form>
@@ -73,23 +72,6 @@
       </button>
     </div>
   </div>
-  <script>
-    // Example modal open/close and buttons
-    const signUpBtn = document.getElementById('signUpBtn');
-    const logInBtn = document.getElementById('logInBtn');
-    const googleBtn = document.getElementById('google-auth-btn');
-    const googleBtnModal = document.getElementById('google-auth-btn-modal');
-    const authModal = document.getElementById('auth-modal');
-    const modalTitle = document.getElementById('modal-title');
-    function closeModal() { authModal.style.display = "none"; }
-    signUpBtn.onclick = () => { modalTitle.textContent = "Sign Up"; authModal.style.display = "flex"; }
-    logInBtn.onclick = () => { modalTitle.textContent = "Log In"; authModal.style.display = "flex"; }
-    googleBtn.onclick = googleBtnModal.onclick = () => { /* Google auth logic here */ alert("Google sign-in here!"); };
-    function subscribeNewsletter(e) { e.preventDefault(); alert("Subscribed!"); }
-    // ESC closes modal
-    document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeModal(); });
-    // Click outside closes modal
-    authModal.onclick = (e) => { if (e.target === authModal) closeModal(); }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

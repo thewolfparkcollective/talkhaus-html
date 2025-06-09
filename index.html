@@ -14,14 +14,52 @@
       <button onclick="showAlert('Sign Up')">Sign Up</button>
       <button onclick="showAlert('Log In')">Log In</button>
     </div>
-    <section class="welcome">
-      <h2>Welcome!</h2>
-      <p>
-        Connect, share, and discover new ideas with friends and the world. 
-        Join Talk Haus today and be part of something special!
-      </p>
+
+    <section class="features">
+      <h2>Features</h2>
+      <ul>
+        <li>Real-time chat rooms</li>
+        <li>Profile customization</li>
+        <li>Private messaging</li>
+        <li>Community events</li>
+      </ul>
     </section>
+
+    <section class="testimonials">
+      <h2>What Our Users Say</h2>
+      <div class="testimonial">
+        <p>“Talk Haus feels like home!”</p>
+        <span>- Alex</span>
+      </div>
+      <div class="testimonial">
+        <p>“Super easy to connect with friends.”</p>
+        <span>- Jamie</span>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <h2>Stay Updated</h2>
+      <form onsubmit="subscribeNewsletter(event)">
+        <input type="email" id="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <div class="social-icons">
+      <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="Twitter" />
+      </a>
+      <a href="https://discord.com/" target="_blank" aria-label="Discord">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord" />
+      </a>
+    </div>
   </main>
+
+  <footer>
+    <p>&copy; 2025 Talk Haus. All rights reserved.</p>
+    <a href="#">Privacy Policy</a> | <a href="#">Contact</a>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -6,30 +6,78 @@
   <title>Talk Haus Feed</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Firebase App (the core Firebase SDK) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <!-- Firebase Auth (for authentication) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <!-- Firebase Firestore (for database) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <main class="container feed-container">
-    <header class="feed-header">
-      <h1>Talk Haus</h1>
-      <button id="logout-btn">Log Out</button>
-    </header>
-    <section class="post-form-section">
-      <form id="post-form">
-        <textarea id="post-content" placeholder="What's on your mind?" maxlength="280" required></textarea>
-        <button type="submit">Post</button>
-      </form>
-    </section>
-    <section>
-      <h2>Your Moots’ Posts</h2>
-      <div id="feed"></div>
-    </section>
-  </main>
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <img src="logo.png" alt="Talk Haus Logo" />
+      </div>
+      <ul class="sidebar-menu">
+        <li id="sidebar-home" class="active"><span>Home</span></li>
+        <li id="sidebar-explore"><span>Explore</span></li>
+        <li id="sidebar-notifications"><span>Notifications</span></li>
+        <li id="sidebar-profile"><span>Profile</span></li>
+        <li id="sidebar-theme-toggle"><span id="theme-text">Light Mode</span></li>
+        <li id="logout-btn"><span>Logout</span></li>
+      </ul>
+    </nav>
+    
+    <!-- Main content -->
+    <main class="feed-container">
+      <header class="feed-header">
+        <h1 id="feed-title">Home</h1>
+        <div class="profile-preview" id="profile-preview">
+          <img id="profile-avatar" src="https://api.dicebear.com/7.x/person/svg" alt="Profile" />
+          <span id="profile-name"></span>
+        </div>
+      </header>
+      
+      <!-- Post composer -->
+      <section class="post-form-section">
+        <form id="post-form">
+          <textarea id="post-content" placeholder="What's on your mind?" maxlength="280" required></textarea>
+          <button type="submit">Post</button>
+        </form>
+      </section>
+      
+      <!-- Feed/Explore/Notifications -->
+      <section>
+        <div id="feed"></div>
+      </section>
+    </main>
+    
+    <!-- Modals for comments and profile editing -->
+    <div id="modal-bg" class="modal-bg" style="display:none;"></div>
+    <div id="comment-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeCommentModal()">&times;</span>
+        <h2>Comments</h2>
+        <div id="modal-post-content"></div>
+        <div id="comments-list"></div>
+        <form id="comment-form">
+          <input type="text" id="comment-input" placeholder="Write a comment..." maxlength="180" required />
+          <button type="submit">Reply</button>
+        </form>
+      </div>
+    </div>
+    <div id="profile-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeProfileModal()">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="profile-form">
+          <input type="text" id="profile-displayname" placeholder="Display Name" maxlength="32" required />
+          <input type="url" id="profile-photo" placeholder="Profile Image URL" />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
   <script src="home.js"></script>
 </body>
 </html>

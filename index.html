@@ -10,64 +10,64 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
-<body style="background: linear-gradient(120deg, #e0e7ff 0%, #f3f7fa 100%); min-height:100vh;">
-  <div class="container" style="max-width:440px;margin:4rem auto 0 auto;box-shadow:0 2px 16px 0 rgba(80,80,120,0.13);border-radius:20px;background:var(--card-bg);padding:2.5rem 2rem 2rem 2rem;">
+<body>
+  <div class="container">
     <div style="display:flex;flex-direction:column;align-items:center;">
-      <img src="logo.png" alt="Talk Haus Logo" class="logo" style="width:62px;margin-bottom:0.5rem;"/>
+      <img src="talkhaus_logo.png" alt="Talk Haus Logo" class="logo"/>
       <h1 style="font-size:2.3rem;font-weight:800;margin:0.4em 0 0.2em 0;color:var(--primary);letter-spacing:-1px;">Talk Haus</h1>
       <p style="font-size:1.13em;color:var(--muted-text);margin-bottom:1.2em;max-width:320px;">
         A vibrant, modern space to connect, share, and discover what's happening with your moots. Join the conversation!
       </p>
     </div>
-    <div class="cta" style="display:flex;flex-direction:column;gap:1em;margin:1.5em 0 1em 0;">
-      <button id="signUpBtn" style="font-size:1.11em;padding:0.68em 0;border-radius:14px;border:none;background:var(--primary-gradient);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,87,184,0.11);transition:background 0.16s,transform 0.12s;cursor:pointer;">Sign Up</button>
-      <button id="logInBtn" style="font-size:1.11em;padding:0.68em 0;border-radius:14px;border:none;background:var(--secondary);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(127,90,240,0.12);transition:background 0.16s,transform 0.12s;cursor:pointer;">Log In</button>
-      <button class="google-btn" id="google-auth-btn" style="background:#fff;color:var(--text);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;gap:0.6em;font-weight:600;font-size:1.08em;transition:border 0.14s,box-shadow 0.14s;border-radius:13px;padding:0.6em 0;">
+    <div class="cta">
+      <button id="signUpBtn">Sign Up</button>
+      <button id="logInBtn" style="background:var(--accent);color:var(--background);">Log In</button>
+      <button class="google-btn" id="google-auth-btn">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" width="20" height="20" style="vertical-align:middle;"/> Sign in with Google
       </button>
     </div>
-    <div class="newsletter-section" style="background:var(--primary);color:#fff;padding:1.2em 1em 1em 1em;border-radius:13px;margin:2.2em 0 1.6em 0;box-shadow:0 1px 8px 0 rgba(127,90,240,0.08);">
+    <div class="newsletter-section">
       <h3 style="margin-top:0;font-size:1.13em;font-weight:700;letter-spacing:0.2px;">Stay in the loop!</h3>
       <form id="newsletter-form" style="display:flex;align-items:center;gap:0.7em;margin-top:0.6em;justify-content:center;">
-        <input type="email" id="email" placeholder="Email address" required style="padding:0.5em 0.7em;border-radius:8px;border:none;font-size:1em;width:170px;margin-right:0.2em;"/>
-        <button type="submit" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.5em 1.1em;font-weight:600;font-size:1em;cursor:pointer;transition:background 0.15s;">Subscribe</button>
+        <input type="email" id="email" placeholder="Email address" required />
+        <button type="submit">Subscribe</button>
       </form>
     </div>
-    <div class="testimonials" style="margin-top:2.5em;margin-bottom:1.2em;display:flex;flex-direction:column;gap:1.3em;">
-      <div class="testimonial" style="background:#f8f5ff;color:var(--secondary);border-radius:11px;padding:1em 1em 0.7em 1em;font-size:1.01em;box-shadow:0 1px 5px 0 rgba(127,90,240,0.06);">
+    <div class="testimonials">
+      <div class="testimonial">
         “I found real friends here and love the energy every day!”<br><b>– Casey</b>
       </div>
-      <div class="testimonial" style="background:#f8f5ff;color:var(--secondary);border-radius:11px;padding:1em 1em 0.7em 1em;font-size:1.01em;box-shadow:0 1px 5px 0 rgba(127,90,240,0.06);">
+      <div class="testimonial">
         “The best safe space to share my thoughts.”<br><b>– Jordan</b>
       </div>
     </div>
-    <div class="social-icons" style="margin-top:1.7em;display:flex;justify-content:center;gap:1.3em;">
-      <a href="#" title="X" style="color:var(--primary);background:#e0eaff;border-radius:50%;padding:0.45em;font-size:1.3rem;transition:background 0.15s,color 0.15s;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+    <div class="social-icons">
+      <a href="#" title="X">
         <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M17.53 3H21.5l-7.16 8.21 8.41 9.79H15.6l-5.66-6.6-6.48 6.6H2.5l7.64-8.7L2.35 3h7.71l5.15 5.97zM16.3 19h2.03l-5.86-6.83 1.62-1.86 6.22 7.17V7.58h-2.05v11.42z"/></svg>
       </a>
-      <a href="#" title="Instagram" style="color:var(--primary);background:#e0eaff;border-radius:50%;padding:0.45em;font-size:1.3rem;transition:background 0.15s,color 0.15s;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+      <a href="#" title="Instagram">
         <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.326 3.608 1.3.975.975 1.238 2.242 1.3 3.608.058 1.265.069 1.645.069 4.849s-.012 3.584-.07 4.849c-.062 1.366-.326 2.633-1.3 3.608-.975.975-2.242 1.238-3.608 1.3-1.265.058-1.645.069-4.849.069s-3.584-.012-4.849-.07c-1.366-.062-2.633-.326-3.608-1.3-.975-.975-1.238-2.242-1.3-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.849c.062-1.366.326-2.633 1.3-3.608.975-.975 2.242-1.238 3.608-1.3C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.012 7.052.07 5.77.128 4.603.392 3.633 1.362c-.97.97-1.234 2.137-1.292 3.419C2.012 5.667 2 6.075 2 9.333v5.334c0 3.258.012 3.666.07 4.947.058 1.282.322 2.449 1.292 3.419.97.97 2.137 1.234 3.419 1.292 1.281.058 1.689.07 4.947.07s3.666-.012 4.947-.07c1.282-.058 2.449-.322 3.419-1.292.97-.97 1.234-2.137 1.292-3.419.058-1.281.07-1.689.07-4.947V9.333c0-3.258-.012-3.666-.07-4.947-.058-1.282-.322-2.449-1.292-3.419-.97-.97-2.137-1.234-3.419-1.292C15.667.012 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.882 1.44 1.44 0 0 0 0-2.882z"/></svg>
       </a>
-      <a href="#" title="Threads" style="color:var(--primary);background:#e0eaff;border-radius:50%;padding:0.45em;font-size:1.3rem;transition:background 0.15s,color 0.15s;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+      <a href="#" title="Threads">
         <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12.003 2.002c-5.513 0-9.997 4.485-9.997 9.998 0 5.513 4.484 9.998 9.997 9.998 5.514 0 9.998-4.485 9.998-9.998.001-5.513-4.484-9.998-9.998-9.998zm0 18.182a8.183 8.183 0 1 1 0-16.364 8.183 8.183 0 0 1 0 16.364zm3.876-8.227c-.061.037-.122.073-.185.109a3.752 3.752 0 0 1-1.282.384c-.062.011-.125.018-.188.026a4.182 4.182 0 0 0 .168.33c.064.107.135.21.206.314a3.784 3.784 0 0 1-1.784 5.272c-.256.1-.524.169-.801.204a3.785 3.785 0 0 1-2.234-.334c-.313-.168-.595-.391-.839-.663-.248-.277-.46-.583-.635-.912-.178-.334-.322-.686-.43-1.048-.108-.365-.183-.74-.228-1.115-.045-.377-.07-.758-.074-1.143-.004-.384.016-.772.06-1.156.044-.383.113-.76.205-1.126.093-.369.217-.726.372-1.065.153-.336.339-.659.553-.953.211-.288.446-.555.699-.796.253-.24.52-.455.803-.643a3.762 3.762 0 0 1 2.197-.698c.276.001.547.035.808.1.262.066.518.17.763.312.247.142.483.321.703.53.219.209.423.444.603.707.18.263.333.552.456.858.124.308.217.629.278.954.061.326.088.659.081.991-.007.333-.044.662-.116.987a3.788 3.788 0 0 1-.271.95zm-1.411-1.346c.052-.217.08-.44.082-.663.003-.222-.017-.444-.06-.663a2.226 2.226 0 0 0-.187-.547c-.069-.134-.146-.264-.229-.389a1.98 1.98 0 0 0-.308-.362c-.112-.106-.23-.203-.353-.285a1.87 1.87 0 0 0-.436-.204c-.156-.053-.317-.082-.482-.087a1.882 1.882 0 0 0-1.28.335c-.119.08-.23.175-.332.282a1.983 1.983 0 0 0-.259.316c-.085.119-.164.245-.237.376a2.267 2.267 0 0 0-.166.529 3.89 3.89 0 0 0-.062.653c-.001.221.025.441.078.655.052.211.129.415.23.605a1.89 1.89 0 0 0 .323.432c.099.095.209.181.326.254.117.074.242.131.371.169.13.039.263.059.398.059.134 0 .266-.02.395-.058a1.89 1.89 0 0 0 .373-.168c.117-.073.227-.159.326-.254a1.887 1.887 0 0 0 .323-.432c.101-.19.178-.394.23-.605zm-1.465 7.211a6.975 6.975 0 1 1 0-13.949 6.975 6.975 0 0 1 0 13.949z"/></svg>
       </a>
     </div>
-    <footer style="margin-top:2.7em;font-size:0.97em;color:var(--muted-text);text-align:center;">
-      © 2025 Talk Haus &middot; <a style="color:var(--secondary);text-decoration:none;margin:0 0.5em;" href="#">About</a> <a style="color:var(--secondary);text-decoration:none;margin:0 0.5em;" href="#">Contact</a>
+    <footer>
+      © 2025 Talk Haus &middot; <a href="#">About</a> <a href="#">Contact</a>
     </footer>
   </div>
   <!-- Auth Modal -->
-  <div id="auth-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);z-index:999;align-items:center;justify-content:center;">
-    <div style="background:#fff;border-radius:14px;max-width:350px;width:90vw;padding:2rem 1.5rem;position:relative;">
-      <span style="position:absolute;top:8px;right:18px;font-size:2rem;color:#aaa;cursor:pointer;" onclick="closeModal()">&times;</span>
-      <h2 id="modal-title" style="margin-bottom:1.1em;">Sign Up</h2>
+  <div id="auth-modal">
+    <div>
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title">Sign Up</h2>
       <form id="auth-form">
-        <input type="email" id="auth-email" placeholder="Email" required style="width:100%;padding:0.7em 0.7em 0.7em 0.7em;margin-bottom:0.7em;font-size:1em;border-radius:8px;border:1.2px solid #e0e4ea;" />
-        <input type="password" id="auth-password" placeholder="Password" required style="width:100%;padding:0.7em 0.7em 0.7em 0.7em;margin-bottom:0.9em;font-size:1em;border-radius:8px;border:1.2px solid #e0e4ea;" />
-        <div id="auth-error" style="color:#e0245e;font-size:0.98em;margin-bottom:0.4em;"></div>
-        <button type="submit" style="width:100%;padding:0.6em 0;background:var(--primary);color:#fff;font-weight:700;font-size:1.08em;border:none;border-radius:10px;cursor:pointer;">Continue</button>
+        <input type="email" id="auth-email" placeholder="Email" required />
+        <input type="password" id="auth-password" placeholder="Password" required />
+        <div id="auth-error"></div>
+        <button type="submit">Continue</button>
       </form>
-      <button class="google-btn" id="google-auth-btn-modal" style="width:100%;margin-top:1em;background:#fff;color:#222;border:1.3px solid #e0e4ea;padding:0.6em 0;border-radius:9px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:0.6em;">
+      <button class="google-btn" id="google-auth-btn-modal">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" width="19" height="19" style="vertical-align:middle;"/> Sign in with Google
       </button>
     </div>

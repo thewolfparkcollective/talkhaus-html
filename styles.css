@@ -10,7 +10,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 40px;
 }
 h1 {
   font-size: 3rem;
@@ -48,14 +49,127 @@ h1 {
 .button-group button:last-child:hover {
   background: #eee;
 }
-.welcome {
-  max-width: 480px;
+
+/* Features section */
+.features {
+  margin: 32px 0 24px 0;
   background: #fff;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  max-width: 480px;
+  width: 100%;
 }
-.welcome h2 {
+.features h2 {
   margin-bottom: 12px;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+}
+.features ul {
+  padding-left: 20px;
+}
+.features li {
+  margin-bottom: 6px;
+}
+
+/* Testimonials */
+.testimonials {
+  margin: 24px 0;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  max-width: 480px;
+  width: 100%;
+}
+.testimonials h2 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+.testimonial {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+}
+.testimonial span {
+  font-size: 0.98rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* Newsletter */
+.newsletter {
+  margin: 16px 0 24px 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+.newsletter form {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.newsletter input[type="email"] {
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
+  width: 60%;
+}
+.newsletter button {
+  padding: 8px 18px;
+  border-radius: 4px;
+  border: none;
+  background: #333;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+.newsletter button:hover {
+  background: #555;
+}
+
+/* Social icons */
+.social-icons {
+  margin: 24px 0 8px 0;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+}
+.social-icons a img {
+  width: 32px;
+  height: 32px;
+  filter: grayscale(20%);
+  transition: filter .2s, transform .2s;
+}
+.social-icons a img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  background: #333;
+  color: #fff;
+  padding: 18px 0 15px 0;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.98rem;
+}
+footer a {
+  color: #fff;
+  text-decoration: underline;
+  margin: 0 5px;
+}
+footer a:hover {
+  color: #c3cfe2;
 }

@@ -9,13 +9,17 @@
 <body>
   <nav class="navbar">
     <div class="navbar-inner">
-      <img src="talkhaus_logo.png" alt="Talk Haus Logo" class="logo navbar-logo"/>
-      <a href="index.html" class="navbar-title">Talk Haus</a>
+      <div class="navbar-left">
+        <img src="talkhaus_logo.png" alt="Talk Haus Logo" class="logo navbar-logo"/>
+        <a href="index.html" class="navbar-title">Talk Haus</a>
+      </div>
       <div class="navbar-links">
         <a href="home.html">Timeline</a>
         <a href="#">Discover</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
+      </div>
+      <div class="navbar-auth">
         <button class="btn-small navbar-btn">Sign Up</button>
         <button class="btn-small navbar-btn" style="background:var(--accent);color:var(--background);">Log In</button>
       </div>
@@ -24,7 +28,7 @@
   <div class="container">
     <h1 style="color:var(--primary);font-size:2rem;font-weight:800;margin:0.6em 0 0.2em 0;">Timeline</h1>
     <div class="timeline">
-      <div class="post" style="background:var(--card-bg);color:var(--text);padding:1.2em 1em;margin-bottom:1em;border-radius:14px;">
+      <div class="post">
         <b style="color:var(--primary);">Alice</b> <span style="color:var(--muted-text);font-size:0.97em;">@alice &middot; 2m ago</span>
         <p style="margin:0.5em 0;">Hey everyone! 👋 Excited to join Talk Haus 🚀</p>
         <div style="display:flex;gap:0.7em;">
@@ -33,7 +37,7 @@
           <button class="btn-small">Share</button>
         </div>
       </div>
-      <div class="post" style="background:var(--card-bg);color:var(--text);padding:1.2em 1em;margin-bottom:1em;border-radius:14px;">
+      <div class="post" style="margin-top:1.2em;">
         <b style="color:var(--primary);">Jordan</b> <span style="color:var(--muted-text);font-size:0.97em;">@jordan &middot; 5m ago</span>
         <p style="margin:0.5em 0;">What’s everyone up to this week?</p>
         <div style="display:flex;gap:0.7em;">
